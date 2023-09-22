@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>song list</title>
+    <script src="./js/jquery.min.js"></script>
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="./css/common.css">
+    <style>
+        .song-box {
+            background-color: #73B7BF;
+            height: 240px;
+            margin: 18px;
+            cursor: pointer;
+            display: flex;
+            border-radius: 8px;
+        }
+
+        .fl > .mask {
+            width: 200px;
+            height:198px;
+            background-color: #2b2f32;
+            opacity: .7;
+            z-index:2;
+            padding:5px;
+        }
+        .fl > .mask:hover {
+            opacity: .5;
+        }
+        .fr{
+            padding:5px 10px;
+            text-align: left;
+        }
+        audio{
+            margin-top: 10px;
+            width: 228px;
+            height: 38px;
+            opacity: .5;
+        }
+    </style>
+</head>
+<body onload="load()" class="bg-white" >
+    <div id="container" class="w">
+    </div>
+<script>
+    function load() {
+        $.ajax({
+            url:"/music/list",
+            type:"post",
+            dataType:"json",
+            success: json => {
+                let list = json.data.list;
+                for (let i = 0; i < list.length; i++) {
+                    let song = list[i];
+                    let songDiv = $("<div class='song-box'></div>");
+                    songDiv.html(`
+                        <div class="fl" style="background-image: url(images/${song.cover});background-size: 100% 100%;">
+                        <div class="mask">
+                           </div>
+                        </div>
+                        <div class="fr">
+                        <h3>歌手:${song.singer}</h3>
+                        <p>歌曲${song.name}</p>
+                        <p class="ellipsis">${song.lyric}</p>
+                        <audio controls>
+                         <source src="mp3/${song.path}" type="audio/mpeg" />
+                         </audio>
+                        </div>
+                    `)
+                    $("#container").append(songDiv);
+                }
+            }
+        })
+    }
+</script>
+</body>
+</html>
