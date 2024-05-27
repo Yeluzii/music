@@ -14,24 +14,28 @@
             cursor: pointer;
             display: flex;
             border-radius: 8px;
+            box-shadow: 10px 10px 10px cornflowerblue;
         }
 
         .fl > .mask {
             width: 200px;
-            height:198px;
+            height: 198px;
             background-color: #2b2f32;
             opacity: .7;
-            z-index:2;
-            padding:5px;
+            z-index: 2;
+            padding: 5px;
         }
+
         .fl > .mask:hover {
             opacity: .5;
         }
-        .fr{
-            padding:5px 10px;
+
+        .fr {
+            padding: 5px 10px;
             text-align: left;
         }
-        audio{
+
+        audio {
             margin-top: 10px;
             width: 228px;
             height: 38px;
@@ -39,15 +43,15 @@
         }
     </style>
 </head>
-<body onload="load()" class="bg-white" >
-    <div id="container" class="w">
-    </div>
+<body onload="load()" class="bg-white">
+<div id="container" class="w">
+</div>
 <script>
     function load() {
         $.ajax({
-            url:"/music/list",
-            type:"post",
-            dataType:"json",
+            url: "/music/list",
+            type: "post",
+            dataType: "json",
             success: json => {
                 let list = json.data.list;
                 for (let i = 0; i < list.length; i++) {
